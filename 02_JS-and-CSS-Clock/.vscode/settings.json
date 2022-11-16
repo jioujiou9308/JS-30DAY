@@ -1,0 +1,9 @@
+{
+    "workbench.colorCustomizations": {
+        "editorRuler.foreground": "#fffc40",
+        "activityBar.background": "#05351F",
+        "titleBar.activeBackground": "#074A2C",
+        "titleBar.activeForeground": "#EFFEF7"
+    },
+    "livePreview.defaultPreviewPath": "c:\\Users\\User\\Desktop\\JS30Day-mission\\02_JS-and-CSS-Clock\\index.html"
+}
