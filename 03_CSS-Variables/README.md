@@ -1,7 +1,5 @@
 # 03 CSS Variables
 
----
-
 ## 實作步驟
 
 ### 第一步: querySelectorAll 抓取 inputs
@@ -99,6 +97,9 @@ img {
 參考筆記 :
 
 https://github.com/a90100/JavaScript30/tree/master/03%20-%20CSS%20Variables
+
 https://github.com/guahsu/JavaScript30/tree/master/03_CSS-Variables
-https://github.com/dustinhsiao21/Javascript30-dustin/tree/master/03%20-%20CSS%20Variables
+
+https://github.com/dustinhsiao21/Javascript30-dustin/tree/master/=03%20-%20CSS%20Variables
+
 https://ithelp.ithome.com.tw/articles/10216893
