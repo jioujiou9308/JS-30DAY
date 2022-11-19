@@ -1,16 +1,20 @@
 # 03 CSS Variables
 
+## 摘要
+
+寫一段 css 用來改變照片的 paddin、filter、background 再透過 js 功能，當拉伸點即時可以即是反映上述三種功能
+
 ## 實作步驟
 
-### 第一步: querySelectorAll 抓取 inputs
+#### 第一步: querySelectorAll 抓取 inputs
 
-### 第二步: 將 inputs 做事件監聽，包含 change ， mousemove
+#### 第二步: 將 inputs 做事件監聽，包含 change ， mousemove
 
-### 第三步: 創建一個事件監聽的 function handleUpdate
+#### 第三步: 創建一個事件監聽的 function handleUpdate
 
-### 第四步: 抓取 dataset 的 px 用來下個步驟可改變 property 的值
+#### 第四步: 抓取 dataset 的 px 用來下個步驟可改變 property 的值
 
-### 第五步: 將改變 blur、spacing、bace 連結到 input
+#### 第五步: 將改變 blur、spacing、bace 連結到 input
 
 ---
 
