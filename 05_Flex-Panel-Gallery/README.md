@@ -49,3 +49,22 @@
 1. transitionend 是 js 的一種語法，寫完事件監聽後，我們 log 出 e.propertyName 可以看到做了哪些 transition
 2. 之所以用 if(e.propertyName.includes('flex'))，而不是用
    if(e.propertyName === 'flex')，是因為有一點 bug 存在，雖然我們在 css 寫的 transtion 是 flex ，但是從網頁中看到的卻是 flex-flow
+
+    //也可以使用 indexOf()
+
+```javascript =
+const panels = document.querySelectorAll('.panel');
+panels.forEach(function (panel) {
+	panel.addEventListener('click', clickHandler);
+	panel.addEventListener('transitionend', transitionendHandler);
+});
+function clickHandler() {
+	this.classList.toggle('open');
+}
+function transitionendHandler(e) {
+	console.log(e);
+	if (e.propertyName.indexOf('flex') !== -1) {
+		this.classList.toggle('open-active');
+	}
+}
+```
