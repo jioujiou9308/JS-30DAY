@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<body>
+		<p>按下按鈕取得位置</p>
+
+		<button onclick="getLocation()">點擊</button>
+
+		<p id="demo"></p>
+
+		<script>
+			const x = document.getElementById('demo');
+
+			function getLocation() {
+				try {
+					navigator.geolocation.getCurrentPosition(showPosition);
+				} catch {
+					x.innerHTML = err;
+				}
+			}
+
+			function showPosition(position) {
+				x.innerHTML = 'Latitude: ' + position.coords.latitude + '<br>Longitude: ' + position.coords.longitude;
+			}
+		</script>
+	</body>
+</html>
