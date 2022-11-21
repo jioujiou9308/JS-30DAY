@@ -82,7 +82,7 @@ searchInput.addEventListener('keyup', displayMatch);
 5. 接者把這樣的結果與尋找程式結合，然後再 suggestion 印出來
 
 ```javascript =
-function displayMatch() {
+function displayMatches() {
 	const matchArry = findMatches(this.value, cities);
 	const html = matchArry
 		.map(function (place) {
@@ -98,7 +98,29 @@ function displayMatch() {
 }
 ```
 
-這了的 join('') 代表的是
+這了的 join('') :把 arrayObject 中的所有元素放入一個字串中。
 
 6. 最後一步驟，我們想要在使用者輸入的關鍵字中加上背景顏色一樣使用
    const regex
+
+```javascript =
+function displayMatches() {
+	const matchArray = findMatches(this.value, cities);
+	const html = matchArray
+		.map((place) => {
+			const regex = new RegExp(this.value, 'gi');
+			const cityName = place.city.replace(regex, `<span class="hl">${this.value}</span>`);
+			const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`);
+			return `
+                  <li>
+                      <span class="name">${cityName}, ${stateName}</span>
+                      <span class="population">${numberWithCommas(place.population)}</span>
+                  </li>
+                  `;
+		})
+		.join('');
+	suggestions.innerHTML = html;
+}
+```
+
+發現問題: 有個關於 this 的問題在這裡，關於.map 後面的 function，一班來說可以用一班 function 的寫法，也可以用 arrow function 的寫法，但是在這裏面我們使用到了 this，如果用一班 function 就會出錯
