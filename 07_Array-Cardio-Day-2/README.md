@@ -85,3 +85,7 @@ console.log(newComment); // 被刪除的 { text: 'Super good', id: 823423 }
 console.table(comments);
 //原始陣列，但已經被砍掉 { text: 'Super good', id: 823423 }
 ```
+
+## 補充
+
+[陣列的 20 種操作的方法](https://israynotarray.com/javascript/20190421/1216566123/)
