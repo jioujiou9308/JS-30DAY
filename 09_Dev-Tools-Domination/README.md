@@ -134,3 +134,6 @@ fetch('https://ithelp.ithome.com.tw/articles/10302628')
 
 // fetching data: 331.2109375 ms
 ```
+
+補充 :
+![](./img/timing.png)
