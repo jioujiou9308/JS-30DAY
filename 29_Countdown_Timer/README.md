@@ -172,6 +172,8 @@ function timer(secondes) {
 
 ### 6. 製作自定義的時間，並顯示在畫面上
 
+-   特別注意這裏面的 function 不用 arrow function 的原因是，為了讓 this 指向我們的 window
+
 ```javascript =
 // 自定義
 // 用這個方式可以拿到form 表單的元素
