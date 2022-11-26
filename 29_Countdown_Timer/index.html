@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Countdown Timer</title>
+		<link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+		<div class="timer">
+			<div class="timer__controls">
+				<button data-time="20" class="timer__button">20 Secs</button>
+				<button data-time="300" class="timer__button">小休息 5</button>
+				<button data-time="900" class="timer__button">打盹 15</button>
+				<button data-time="1200" class="timer__button">工作 25</button>
+				<button data-time="3600" class="timer__button">午餐 60</button>
+				<form name="customForm" id="custom">
+					<input type="text" name="minutes" placeholder="Enter Minutes" />
+				</form>
+			</div>
+			<div class="display">
+				<h1 class="display__time-left"></h1>
+				<p class="display__end-time"></p>
+			</div>
+		</div>
+
+		<!-- <script src="scripts-START.js"></script> -->
+		<script>
+			//結結束setInterval用
+			let countdown;
+			const timeDisplay = document.querySelector('.display__time-left');
+			const endTimeDisplay = document.querySelector('.display__end-time');
+			const buttons = document.querySelectorAll('[data-time]');
+
+			function timer(secondes) {
+				clearInterval(countdown);
+
+				const now = Date.now();
+				const then = now + secondes * 1000;
+				showTimeLeft(secondes);
+				showEndTime(then);
+
+				countdown = setInterval(() => {
+					// 取得倒數計時秒數
+					const secondesLeft = Math.round((then - Date.now()) / 1000);
+					if (secondesLeft < 0) {
+						clearInterval(countdown);
+						return;
+					}
+					showTimeLeft(secondesLeft);
+				}, 1000);
+			}
+
+			// 展示第一秒開始倒數的時間
+			function showTimeLeft(secondes) {
+				const minutes = Math.floor(secondes / 60);
+				const remainedSeconds = secondes % 60;
+				const display = `${minutes}:${remainedSeconds < 10 ? '0' : ''}${remainedSeconds}`;
+				timeDisplay.textContent = display;
+				// console.log(display);
+			}
+
+			function showEndTime(timestamp) {
+				const end = new Date(timestamp);
+				const hours = end.getHours();
+				const minutes = end.getMinutes();
+				const endDisplay = `${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
+				endTimeDisplay.textContent = endDisplay;
+				// console.log(endDisplay);
+			}
+
+			//快捷見秒數製作
+			function startTimer() {
+				// console.log(this.dataset.time);
+				const secondes = this.dataset.time;
+				timer(secondes);
+			}
+			//快捷鍵事件監聽
+			buttons.forEach((button) => button.addEventListener('click', startTimer));
+
+			// 自定義
+			document.customForm.addEventListener('submit', function (e) {
+				e.preventDefault();
+				const mins = this.minutes.value;
+				timer(mins * 60);
+			});
+		</script>
+	</body>
+</html>
