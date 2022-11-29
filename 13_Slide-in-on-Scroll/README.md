@@ -103,4 +103,6 @@ HTMLElement.offsetTop 返回指定元素相對於有父元素(offsetParent)中�
 
 參閱：MDN-Window.innerHeight
 
-[筆記參考網址](https://github.com/guahsu/JavaScript30/tree/master/13_Slide-in-on-Scroll/)
+[筆記參考網址 1](https://github.com/guahsu/JavaScript30/tree/master/13_Slide-in-on-Scroll/)
+
+[筆記參考網址 2](https://ithelp.ithome.com.tw/articles/10221939)
