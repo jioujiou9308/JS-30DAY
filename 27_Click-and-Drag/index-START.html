@@ -64,15 +64,14 @@
 			slider.addEventListener('mousemove', (e) => {
 				// 過濾掉不是點擊的時候
 				if (!isDown) return;
-				// 獲取滑鼠移動的X點座標(e.pageX)，一樣要扣掉margin的影響(slider.offsetLeft)，才能得到真正滑鼠移動的X座標(moveX)
+				// 隨時移動的X座標
 				const moveX = e.pageX - slider.offsetLeft;
 				// console.log(`點擊下去的起始點${startX}，隨時變化的${x}`);
-
 				// 獲得拖動多少的距離
 				const walk = moveX - startX;
 				slider.scrollLeft = scrollLeft - walk;
 
-				console.log('startX: ', startX, 'moveX: ', moveX, 'walk: ', walk);
+				// console.log('startX: ', startX, 'moveX: ', moveX, 'walk: ', walk);
 			});
 		</script>
 	</body>
