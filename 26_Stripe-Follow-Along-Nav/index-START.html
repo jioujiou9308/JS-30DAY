@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Follow Along Nav</title>
+		<link rel="stylesheet" href="style.css" />
+	</head>
+
+	<body>
+		<h2>Cool</h2>
+		<h2>Cool</h2>
+		<h2>Cool</h2>
+		<h2>Cool</h2>
+		<h2>Cool</h2>
+		<h2>Cool</h2>
+		<nav class="top">
+			<!-- 高量區域 -->
+			<div class="dropdownBackground">
+				<span class="arrow"></span>
+			</div>
+
+			<ul class="cool">
+				<!-- 其中一個字定義菜單內容 -->
+				<li>
+					<a href="#">About Me</a>
+					<div class="dropdown dropdown1">
+						<div class="bio">
+							<img src="https://logo.clearbit.com/wesbos.com" />
+							<p>Wes Bos sure does love web development. He teaches things like JavaScript, CSS and BBQ. Wait. BBQ isn't part of web development. It should be though!</p>
+						</div>
+					</div>
+				</li>
+				<!-- 其中一個字定義菜單內容 -->
+				<li>
+					<a href="#">Courses</a>
+					<ul class="dropdown courses">
+						<li>
+							<span class="code">RFB</span>
+							<a href="https://ReactForBeginners.com">React For Beginners</a>
+						</li>
+						<li>
+							<span class="code">ES6</span>
+							<a href="https://ES6.io">ES6 For Everyone</a>
+						</li>
+						<li>
+							<span class="code">NODE</span>
+							<a href="https://LearnNode.com">Learn Node</a>
+						</li>
+						<li>
+							<span class="code">STPU</span>
+							<a href="https://SublimeTextBook.com">Sublime Text Power User</a>
+						</li>
+						<li>
+							<span class="code">WTF</span>
+							<a href="http://Flexbox.io">What The Flexbox?!</a>
+						</li>
+						<li>
+							<span class="code">GRID</span>
+							<a href="https://CSSGrid.io">CSS Grid</a>
+						</li>
+						<li>
+							<span class="code">LRX</span>
+							<a href="http://LearnRedux.com">Learn Redux</a>
+						</li>
+						<li>
+							<span class="code">CLPU</span>
+							<a href="http://CommandLinePowerUser.com">Command Line Power User</a>
+						</li>
+						<li>
+							<span class="code">MMD</span>
+							<a href="http://MasteringMarkdown.com">Mastering Markdown</a>
+						</li>
+					</ul>
+				</li>
+				<!-- 其中一個字定義菜單內容 -->
+				<li>
+					<a href="#">Other Links</a>
+					<ul class="dropdown dropdown3">
+						<li><a class="button" href="http://twitter.com/wesbos">Twitter</a></li>
+						<li><a class="button" href="http://facebook.com/wesbos.developer">Facebook</a></li>
+						<li><a class="button" href="http://wesbos.com">Blog</a></li>
+						<li><a class="button" href="http://wesbos.com/courses">Course Catalog</a></li>
+					</ul>
+				</li>
+			</ul>
+		</nav>
+
+		<script>
+			const navList = document.querySelectorAll('.cool>li');
+			console.log('navlist:', navList);
+			const background = document.querySelector('.dropdownBackground');
+			const nav = document.querySelector('.top');
+			// console.log(navList, background, nav);
+
+			function handleEnter() {
+				// 分開的原因是因為漸進式的效果，
+				this.classList.add('trigger-enter');
+				setTimeout(() => this.classList.contains('trigger-enter') && this.classList.add('trigger-enter-active'), 10);
+				// 顯示白色背景
+				background.classList.add('open');
+				// 先拿到自訂議內容的尺寸等等等訊息
+				const dropdownRect = this.querySelector('.dropdown').getBoundingClientRect();
+				// 計算多插入的內容高度，所以是拿我們的nav距離頂層的距離有多少
+				const navRect = nav.getBoundingClientRect();
+				// 把拿到的尺寸加進background
+				const backgroundRect = {
+					width: dropdownRect.width,
+					height: dropdownRect.height,
+					top: dropdownRect.top - navRect.top,
+					left: dropdownRect.left - navRect.left,
+				};
+				background.style.setProperty('width', `${backgroundRect.width}px`);
+				background.style.setProperty('height', `${backgroundRect.height}px`);
+				background.style.setProperty('transform', `translate(${backgroundRect.left}px, ${backgroundRect.top}px)`);
+			}
+
+			function handleLeave() {
+				this.classList.remove('trigger-enter');
+				this.classList.remove('trigger-enter-active');
+				background.classList.remove('open');
+			}
+
+			// 綁定三個li的移入與移出
+			navList.forEach((li) => li.addEventListener('mouseenter', handleEnter));
+			navList.forEach((li) => li.addEventListener('mouseleave', handleLeave));
+		</script>
+	</body>
+</html>
