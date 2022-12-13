@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Mouse Shadow</title>
+	</head>
+	<body>
+		<div class="code">
+			<h1 contenteditable>🔥WOAH!</h1>
+		</div>
+
+		<style>
+			html {
+				color: black;
+				font-family: sans-serif;
+			}
+
+			body {
+				margin: 0;
+			}
+
+			.code {
+				min-height: 100vh;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				color: black;
+			}
+
+			h1 {
+				text-shadow: 10px 10px 0 rgba(0, 0, 0, 1);
+				font-size: 100px;
+			}
+		</style>
+
+		<script>
+			const code = document.querySelector('.code');
+			const text = code.querySelector('h1');
+
+			function shadow(e) {
+				// 獲取.code的寬度 & 長度
+				let { offsetWidth: width, offsetHeight: height } = code;
+				// 抓取滑鼠偏移的位置
+				let { offsetX: x, offsetY: y } = e;
+				// 先給定一個r 給陰影的計算
+				let r = 100;
+
+				if (this !== e.target) {
+					x = x + e.target.offsetLeft;
+					y = y + e.target.offsetTop;
+				}
+				const xR = Math.round((x / width) * r - r / 2);
+				const yR = Math.round((y / height) * r - r / 2);
+				text.style.textShadow = `${xR}px ${yR}px 3px rgba(0, 0, 0, 0.1),
+        ${yR}px ${xR}px rgba(2, 0, 0, 0.4)`;
+			}
+
+			code.addEventListener('mousemove', shadow);
+		</script>
+	</body>
+</html>
