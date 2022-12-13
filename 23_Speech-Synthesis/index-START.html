@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Speech Synthesis</title>
+		<link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+		<div class="voiceinator">
+			<h1>The Voiceinator 5000</h1>
+
+			<select name="voice" id="voices">
+				<option value="">Select A Voice</option>
+			</select>
+
+			<label for="rate">Rate:</label>
+			<input name="rate" type="range" min="0" max="3" value="1" step="0.1" />
+
+			<label for="pitch">Pitch:</label>
+			<input name="pitch" type="range" min="0" max="2" step="0.1" />
+
+			<textarea name="text">Hello! I love JavaScript </textarea>
+			<button id="stop">停止</button>
+			<button id="speak">開始</button>
+		</div>
+
+		<script>
+			// 拿到元素，準備將可使用的語言引琴呈現在這裡
+			const voicesDropdown = document.querySelector('[name="voice"]');
+			const stopButton = document.querySelector('#stop');
+			const speakButton = document.querySelector('#speak');
+			// 先設定變數voiceMsg 是一個可以語音撥放的種類
+			const voiceMsg = new SpeechSynthesisUtterance();
+			// 將文字放入boiceMsg裡面的text屬性中
+			voiceMsg.text = document.querySelector('[name="text"]').value;
+			// 先設定voices 為空陣列，等等可以裝全部的語音引勤
+			let voices = [];
+			// 最後要做語音速度、音高與文本內容，先抓取其中所有的元素
+			const options = document.querySelectorAll('[type="range"],[name = "text"]');
+
+			// 直接就可以撥放語音功能
+			// 做一個按鈕來觸發
+			function toggle(startSpeak = true) {
+				if (startSpeak) {
+					speechSynthesis.speak(voiceMsg);
+				} else {
+					speechSynthesis.cancel(voiceMsg);
+				}
+			}
+
+			// 獲取當前語音的種類，並呈現在網頁上
+			function showVoices() {
+				// 拿到this中裡面的getVoices的屬性
+				voices = this.getVoices();
+				const optionHTML = voices
+					.map((voice) => {
+						return `
+          <option value="${voice.lang}">${voice.name}(${voice.lang})</option>
+          `;
+					})
+					.join('');
+				voicesDropdown.innerHTML = optionHTML;
+				// console.log(voices);
+			}
+
+			// 做一個function代表改變引勤時的語音種類
+			function setVoice() {
+				// console.log(this.value); //可以拿到類似  en-US  or zh-TW
+				// 直接將匹配到的引勤複製給boiceMsg的voice
+				voiceMsg.voice = voices.find((voice) => voice.lang === this.value);
+				toggle();
+			}
+
+			//做速度、音高與文本內容的改變
+			function setOption() {
+				console.log(this.value);
+				// es6語法
+				voiceMsg[this.name] = this.value;
+				toggle();
+			}
+
+			speakButton.addEventListener('click', toggle);
+			stopButton.addEventListener('click', () => {
+				toggle(false);
+			});
+			// 監聽speechSynthesis，改變的時候就換語音種類
+			speechSynthesis.addEventListener('voiceschanged', showVoices);
+			//當下拉是引勤選項改變時就觸發setVoice
+			voicesDropdown.addEventListener('change', setVoice);
+			// 對options 做事件監聽
+			options.forEach((option) => option.addEventListener('change', setOption));
+		</script>
+	</body>
+</html>
