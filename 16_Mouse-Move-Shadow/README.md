@@ -12,6 +12,7 @@
 
 -   offsetWidth
 -   es6 解構賦值
+-   this & e.target 的差異
 
 ## 內容
 
@@ -92,4 +93,25 @@ text.style.textShadow = `${xR}px ${yR}px 3px rgba(0, 0, 0, 0.4),
 ${yR}px ${xR}px rgba(0, 0, 0, 0.4)`;
 ```
 
--補充: text-shadow 第三個參數: 模糊度
+## 補充 :
+
+-   補充 1: text-shadow 第三個參數: 模糊度
+-   補充 2: Mouse Event Coordinate
+    -   movementX, movementY
+        距離上次 Event 觸發時滑鼠位置的差距
+        原點: 上次的 screen(x, y)
+        計算方式: currentEvent.movementX = currentEvent.screenX - previousEvent.screenX.
+    -   clientX, clientY
+        application client area 的座標, 也就是 client 的可視區座標
+        可視區左上角
+    -   offsetX, offsetY
+        在 HTML 元素上的座標
+        原點: 該 HTML 元素的左上角。
+    -   pageX, pageY
+        在頁面上的位置
+        原點: 該頁的左上角(捲軸捲動時，座標會改變)
+    -   screenX, screenY
+        在螢幕上的座標
+        原點: 作業系統畫面(螢幕)的左上角
+        x, y
+        client(x, y)的意思, 它只是別名
