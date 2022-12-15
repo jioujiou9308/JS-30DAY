@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Speech Detection</title>
+	</head>
+	<body>
+		<div class="words" contenteditable></div>
+
+		<script>
+			window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+			const recognition = new SpeechRecognition();
+			console.log(recognition);
+			// 中文
+			recognition.lang = 'zh-TW';
+
+			// 將拿到的語音內容呈現在畫面上
+			let p = document.createElement('p');
+			const words = document.querySelector('.words');
+			words.appendChiled(p);
+
+			// 對識別系統做監聽
+			recognition.addEventListener('result', (e) => {
+				console.log(e.result);
+				// 將拿到的結果轉化成陣列
+				const transcript = Array.from(e.result)
+					.map((result) => result[0])
+					.map((result) => result.transcript)
+					.join('');
+				// console.log(transcript)
+
+				// 增加變化
+				let filter = transcript.replace('逗號', '，').replace('冒號', ':');
+
+				// 內容呈現在畫面上
+				p.textContent = filter;
+				// 解決語音內容被覆蓋問題
+				if (e.results[0].isFinal) {
+					p = document.createElement('p');
+					words.appendChild(p);
+				}
+
+				// 增加語音內容，清空畫面
+				if (transcript.include('clear')) {
+					words.innerHTML = '';
+				}
+			});
+
+			// 連續監聽與新系統，結束時再開啟
+			recognition.addEventListener('end', recognition.start);
+			// 除了監聽還要開始語音識別的模式
+			recognition.start();
+		</script>
+
+		<style>
+			html {
+				font-size: 10px;
+			}
+
+			body {
+				background: #ffc600;
+				font-family: 'helvetica neue';
+				font-weight: 200;
+				font-size: 20px;
+			}
+
+			.words {
+				max-width: 500px;
+				margin: 50px auto;
+				background: white;
+				border-radius: 5px;
+				box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.1);
+				padding: 1rem 2rem 1rem 5rem;
+				background: -webkit-gradient(linear, 0 0, 0 100%, from(#d9eaf3), color-stop(4%, #fff)) 0 4px;
+				background-size: 100% 3rem;
+				position: relative;
+				line-height: 3rem;
+			}
+
+			p {
+				margin: 0 0 3rem;
+			}
+
+			.words:before {
+				content: '';
+				position: absolute;
+				width: 4px;
+				top: 0;
+				left: 30px;
+				bottom: 0;
+				border: 1px solid;
+				border-color: transparent #efe4e4;
+			}
+		</style>
+	</body>
+</html>
